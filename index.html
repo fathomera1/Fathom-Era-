@@ -1,0 +1,912 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+
+  <!-- Makes the website fit phones, tablets and computers -->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <meta name="theme-color" content="#102b32">
+
+  <meta name="description"
+    content="Fathom Era is a movement for builders, healers, and seekers who want to build better lives. Go Deep. Build Well. Live Whole.">
+
+  <title>Fathom Era — Go Deep. Build Well. Live Whole.</title>
+
+  <!-- Import a clean, modern font -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@400;500;600;700;800&display=swap"
+    rel="stylesheet">
+
+  <style>
+    /* ========================================
+       1. GLOBAL SETTINGS AND BRAND COLORS
+       ======================================== */
+
+    :root {
+      --ocean: #102b32;
+      --deep: #0b2026;
+      --green: #91a88b;
+      --cream: #f5f2e9;
+      --brown: #b58d6a;
+      --muted: #b5c2bc;
+      --white: #ffffff;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: 'DM Sans', sans-serif;
+      background: var(--cream);
+      color: var(--ocean);
+      line-height: 1.7;
+      overflow-x: hidden;
+    }
+
+    h1, h2, h3 {
+      font-family: 'Manrope', sans-serif;
+      line-height: 1.2;
+      letter-spacing: -1px;
+    }
+
+    a {
+      text-decoration: none;
+      color: inherit;
+    }
+
+    .container {
+      width: min(1100px, 90%);
+      margin: 0 auto;
+    }
+
+    .eyebrow {
+      text-transform: uppercase;
+      letter-spacing: 3px;
+      font-size: 11px;
+      font-weight: 700;
+      color: var(--brown);
+      margin-bottom: 20px;
+    }
+
+    .section-padding {
+      padding: 100px 0;
+    }
+
+    /* ========================================
+       2. NAVIGATION BAR
+       ======================================== */
+
+    header {
+      background: var(--deep);
+      color: var(--cream);
+      border-bottom: 1px solid rgba(255,255,255,0.08);
+    }
+
+    nav {
+      min-height: 82px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 20px;
+    }
+
+    .logo {
+      font-family: 'Manrope', sans-serif;
+      font-size: 21px;
+      font-weight: 800;
+      letter-spacing: 1px;
+    }
+
+    .logo span {
+      color: var(--green);
+    }
+
+    .nav-link {
+      font-size: 13px;
+      color: var(--muted);
+      transition: color 0.2s;
+    }
+
+    .nav-link:hover {
+      color: var(--white);
+    }
+
+    .nav-button {
+      padding: 11px 19px;
+      border: 1px solid rgba(255,255,255,0.3);
+      border-radius: 30px;
+      font-size: 12px;
+      font-weight: 700;
+      transition: background 0.2s;
+    }
+
+    .nav-button:hover {
+      background: rgba(255,255,255,0.1);
+    }
+
+    /* ========================================
+       3. HERO SECTION
+       The first thing visitors see.
+       ======================================== */
+
+    .hero {
+      position: relative;
+      overflow: hidden;
+      background:
+        radial-gradient(
+          ellipse at 85% 20%,
+          rgba(91,130,113,0.25),
+          transparent 40%
+        ),
+        radial-gradient(
+          ellipse at 10% 90%,
+          rgba(181,141,106,0.12),
+          transparent 35%
+        ),
+        linear-gradient(145deg, #102b32, #0b2026 75%);
+
+      color: var(--cream);
+      padding: 110px 0 120px;
+    }
+
+    /* Decorative rings create a subtle deep-ocean feeling */
+    .hero::before {
+      content: "";
+      position: absolute;
+      width: 450px;
+      height: 450px;
+      border: 1px solid rgba(145,168,139,0.13);
+      border-radius: 50%;
+      right: -150px;
+      top: 40px;
+      box-shadow:
+        0 0 0 40px rgba(145,168,139,0.025),
+        0 0 0 80px rgba(145,168,139,0.025);
+      pointer-events: none;
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 1;
+      max-width: 760px;
+    }
+
+    .hero .eyebrow {
+      color: var(--green);
+    }
+
+    .hero h1 {
+      font-size: clamp(42px, 8vw, 78px);
+      font-weight: 800;
+      line-height: 1.08;
+      margin-bottom: 28px;
+    }
+
+    .hero h1 span {
+      color: var(--green);
+    }
+
+    .hero-description {
+      color: #c2cdc8;
+      font-size: 17px;
+      max-width: 540px;
+      margin-bottom: 36px;
+    }
+
+    .button {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 15px 27px;
+      border-radius: 8px;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 14px;
+      font-weight: 700;
+      border: none;
+      cursor: pointer;
+      transition: transform 0.2s, background 0.2s;
+    }
+
+    .button:hover {
+      transform: translateY(-2px);
+    }
+
+    .button-green {
+      background: var(--green);
+      color: var(--deep);
+    }
+
+    .button-green:hover {
+      background: #a9bea2;
+    }
+
+    .hero-note {
+      margin-top: 55px;
+      font-size: 11px;
+      color: #879b94;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+    }
+
+    /* ========================================
+       4. ABOUT SECTION
+       Explains what the brand stands for.
+       ======================================== */
+
+    .about {
+      text-align: center;
+    }
+
+    .about h2 {
+      font-size: clamp(32px, 5vw, 48px);
+      max-width: 700px;
+      margin: 0 auto 28px;
+    }
+
+    .about-text {
+      max-width: 680px;
+      margin: 0 auto;
+      color: #5c6a64;
+      font-size: 17px;
+    }
+
+    .about-quote {
+      margin-top: 35px;
+      color: #738775;
+      font-size: 13px;
+      font-weight: 600;
+      letter-spacing: 1px;
+    }
+
+    /* ========================================
+       5. THREE PILLARS SECTION
+       Build, Grow and Teach.
+       ======================================== */
+
+    .pillars {
+      background: #eae9df;
+    }
+
+    .section-heading {
+      max-width: 650px;
+      margin-bottom: 50px;
+    }
+
+    .section-heading h2 {
+      font-size: clamp(32px, 5vw, 45px);
+      margin-bottom: 20px;
+    }
+
+    .section-heading p {
+      color: #64716b;
+    }
+
+    .pillar-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 22px;
+    }
+
+    .pillar-card {
+      background: var(--cream);
+      border: 1px solid rgba(16,43,50,0.07);
+      border-radius: 12px;
+      padding: 32px 27px;
+      box-shadow: 0 8px 25px rgba(16,43,50,0.035);
+      transition: transform 0.25s, box-shadow 0.25s;
+    }
+
+    .pillar-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 15px 30px rgba(16,43,50,0.08);
+    }
+
+    .pillar-icon {
+      width: 52px;
+      height: 52px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background: #dce4d8;
+      border-radius: 12px;
+      margin-bottom: 25px;
+      font-size: 25px;
+    }
+
+    .pillar-card h3 {
+      font-size: 23px;
+      margin-bottom: 15px;
+    }
+
+    .pillar-card p {
+      color: #65716b;
+      font-size: 14px;
+    }
+
+    .pillar-number {
+      display: block;
+      margin-top: 30px;
+      color: #9a9d8d;
+      font-size: 11px;
+      letter-spacing: 2px;
+    }
+
+    /* ========================================
+       6. FOUNDER'S NOTE
+       A personal introduction from the founder.
+       ======================================== */
+
+    .founder {
+      background: var(--ocean);
+      color: var(--cream);
+    }
+
+    .founder-grid {
+      display: grid;
+      grid-template-columns: 0.8fr 1.2fr;
+      gap: 70px;
+      align-items: center;
+    }
+
+    .founder-mark {
+      min-height: 310px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background:
+        radial-gradient(
+          circle at center,
+          rgba(145,168,139,0.22),
+          transparent 55%
+        ),
+        #0c252b;
+      border: 1px solid rgba(145,168,139,0.16);
+      border-radius: 12px;
+      overflow: hidden;
+    }
+
+    .founder-mark span {
+      font-family: 'Manrope', sans-serif;
+      font-size: 100px;
+      font-weight: 800;
+      color: var(--green);
+      opacity: 0.8;
+    }
+
+    .founder h2 {
+      font-size: clamp(32px, 5vw, 44px);
+      margin-bottom: 25px;
+    }
+
+    .founder-copy {
+      color: #c2cdc8;
+      font-size: 15px;
+      margin-bottom: 20px;
+    }
+
+    .founder-signature {
+      color: var(--green);
+      font-size: 13px;
+      margin-top: 30px;
+      font-weight: 600;
+    }
+
+    /* ========================================
+       7. EMAIL SIGNUP SECTION
+       The form demonstrates interaction.
+       Real subscriber storage requires a service.
+       ======================================== */
+
+    .signup {
+      text-align: center;
+    }
+
+    .signup-box {
+      max-width: 720px;
+      margin: 0 auto;
+      padding: 55px 35px;
+      background: #e6e9df;
+      border-radius: 14px;
+      border: 1px solid rgba(16,43,50,0.07);
+    }
+
+    .signup h2 {
+      font-size: clamp(30px, 5vw, 43px);
+      margin-bottom: 18px;
+    }
+
+    .signup-description {
+      color: #64716b;
+      font-size: 14px;
+      margin-bottom: 30px;
+    }
+
+    .signup-form {
+      display: flex;
+      gap: 10px;
+      max-width: 500px;
+      margin: 0 auto;
+    }
+
+    .signup-form input {
+      flex: 1;
+      min-width: 0;
+      padding: 15px;
+      border: 1px solid #cbd2c9;
+      border-radius: 8px;
+      background: var(--cream);
+      font: inherit;
+      font-size: 14px;
+      color: var(--ocean);
+      outline: none;
+    }
+
+    .signup-form input:focus {
+      border-color: #6d8c70;
+      box-shadow: 0 0 0 3px rgba(109,140,112,0.12);
+    }
+
+    .signup-form button {
+      white-space: nowrap;
+    }
+
+    .form-message {
+      min-height: 25px;
+      margin-top: 17px;
+      font-size: 13px;
+      color: #466b4b;
+    }
+
+    /* ========================================
+       8. FOOTER
+       Simple closing section and social links.
+       ======================================== */
+
+    footer {
+      background: var(--deep);
+      color: var(--cream);
+      padding: 35px 0;
+    }
+
+    .footer-inner {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 20px;
+      flex-wrap: wrap;
+    }
+
+    .footer-brand {
+      font-family: 'Manrope', sans-serif;
+      font-size: 15px;
+      font-weight: 800;
+    }
+
+    .footer-copy {
+      font-size: 12px;
+      color: #93a49c;
+    }
+
+    .social-links {
+      display: flex;
+      gap: 20px;
+      flex-wrap: wrap;
+    }
+
+    .social-links a {
+      color: #b5c2bc;
+      font-size: 12px;
+    }
+
+    .social-links a:hover {
+      color: var(--green);
+    }
+
+    /* ========================================
+       9. MOBILE RESPONSIVENESS
+       Changes the layout for smaller screens.
+       ======================================== */
+
+    @media (max-width: 700px) {
+
+      .section-padding {
+        padding: 75px 0;
+      }
+
+      nav {
+        min-height: 72px;
+      }
+
+      .logo {
+        font-size: 18px;
+      }
+
+      .hero {
+        padding: 85px 0 85px;
+      }
+
+      .hero h1 {
+        font-size: clamp(40px, 11vw, 58px);
+      }
+
+      .hero-description {
+        font-size: 15px;
+      }
+
+      .pillar-grid {
+        grid-template-columns: 1fr;
+        gap: 15px;
+      }
+
+      .pillar-card {
+        padding: 27px;
+      }
+
+      .founder-grid {
+        grid-template-columns: 1fr;
+        gap: 35px;
+      }
+
+      .founder-mark {
+        min-height: 220px;
+      }
+
+      .founder-mark span {
+        font-size: 80px;
+      }
+
+      .signup-box {
+        padding: 40px 20px;
+      }
+
+      .signup-form {
+        flex-direction: column;
+      }
+
+      .signup-form input,
+      .signup-form button {
+        width: 100%;
+        min-height: 50px;
+      }
+
+      .footer-inner {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+    }
+
+    /* Extra adjustments for very small phones */
+    @media (max-width: 360px) {
+      .nav-button {
+        padding: 9px 12px;
+        font-size: 11px;
+      }
+
+      .hero h1 {
+        font-size: 37px;
+      }
+    }
+
+  </style>
+</head>
+
+<body>
+
+  <!-- NAVIGATION -->
+  <header>
+    <div class="container">
+      <nav>
+        <a href="#home" class="logo">FATHOM <span>ERA.</span></a>
+
+        <a href="#join" class="nav-button">Join the Era ↗</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+
+    <!-- HERO SECTION -->
+    <section class="hero" id="home">
+      <div class="container">
+        <div class="hero-content">
+
+          <p class="eyebrow">A new era of depth</p>
+
+          <h1>
+            Go Deep.<br>
+            Build Well.<br>
+            <span>Live Whole.</span>
+          </h1>
+
+          <p class="hero-description">
+            Fathom Era is a movement for builders, healers,
+            and seekers who refuse to live on the surface.
+            Build yourself. Build meaningful things.
+            Become who you were meant to be.
+          </p>
+
+          <a href="#join" class="button button-green">
+            Join the Era &nbsp; ↗
+          </a>
+
+          <p class="hero-note">
+            Depth over distraction · Craft over consumption
+          </p>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- ABOUT SECTION -->
+    <section class="about section-padding" id="about">
+      <div class="container">
+
+        <p class="eyebrow">What we believe</p>
+
+        <h2>
+          A better life is built from the inside out.
+        </h2>
+
+        <p class="about-text">
+          We believe life is meant to be lived deeply.
+          We build with our hands. We train our bodies.
+          We study our minds. We nurture our spirits.
+          We learn, we grow, and we help others do the same.
+          Not to become perfect, but to become whole.
+        </p>
+
+        <p class="about-quote">
+          LESS NOISE. MORE MEANING. BETTER LIVING.
+        </p>
+
+      </div>
+    </section>
+
+    <!-- THREE PILLARS -->
+    <section class="pillars section-padding" id="pillars">
+      <div class="container">
+
+        <div class="section-heading">
+          <p class="eyebrow">The foundation</p>
+
+          <h2>Three ways to build a life.</h2>
+
+          <p>
+            Everything we do comes back to three practices:
+            building things, growing ourselves, and sharing
+            what we learn.
+          </p>
+        </div>
+
+        <div class="pillar-grid">
+
+          <!-- BUILD PILLAR -->
+          <article class="pillar-card">
+            <div class="pillar-icon" aria-hidden="true">⚒</div>
+
+            <h3>Build.</h3>
+
+            <p>
+              Turn ideas into reality. Learn engineering,
+              design, and craftsmanship. Create things
+              with your hands, from small experiments
+              to ambitious projects.
+            </p>
+
+            <span class="pillar-number">01 — THE CRAFT</span>
+          </article>
+
+          <!-- GROW PILLAR -->
+          <article class="pillar-card">
+            <div class="pillar-icon" aria-hidden="true">🌱</div>
+
+            <h3>Grow.</h3>
+
+            <p>
+              Understand your body and mind. Explore biology,
+              movement, healthy habits, psychology, and
+              evidence-informed approaches to wellbeing.
+            </p>
+
+            <span class="pillar-number">02 — THE SELF</span>
+          </article>
+
+          <!-- TEACH PILLAR -->
+          <article class="pillar-card">
+            <div class="pillar-icon" aria-hidden="true">↗</div>
+
+            <h3>Teach.</h3>
+
+            <p>
+              Share what you discover. Turn experience into
+              useful lessons, lead with integrity, and help
+              others build lives with greater meaning.
+            </p>
+
+            <span class="pillar-number">03 — THE LEGACY</span>
+          </article>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- FOUNDER'S NOTE -->
+    <section class="founder section-padding" id="founder">
+      <div class="container">
+
+        <div class="founder-grid">
+
+          <div class="founder-mark" aria-hidden="true">
+            <span>FE.</span>
+          </div>
+
+          <div>
+            <p class="eyebrow">A note from the founder</p>
+
+            <h2>I'm building what I wish existed.</h2>
+
+            <p class="founder-copy">
+              I'm an 18-year-old builder and learner from
+              Nigeria. I'm learning to code, building a
+              miniature car from scratch, and exploring
+              the science of health, the mind, and human growth.
+            </p>
+
+            <p class="founder-copy">
+              I don't have everything figured out.
+              I don't have a big team or a lot of resources.
+              But I have a vision: to build a life of depth
+              and help others do the same.
+            </p>
+
+            <p class="founder-copy">
+              Fathom Era is where that journey begins.
+              This is an invitation to learn alongside me,
+              build with intention, and grow into something
+              greater than we are today.
+            </p>
+
+            <p class="founder-signature">
+              One step at a time. One life at a time.
+            </p>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- EMAIL SIGNUP -->
+    <section class="signup section-padding" id="join">
+      <div class="container">
+
+        <div class="signup-box">
+
+          <p class="eyebrow">Come build with us</p>
+
+          <h2>Make room for depth.</h2>
+
+          <p class="signup-description">
+            Get weekly lessons on building, growing,
+            and living whole. No spam. Just depth.
+          </p>
+
+          <!--
+            DEMO FORM:
+            This form validates the email and shows a message.
+            It does NOT store or send email addresses.
+            Connect a real email service when you're ready.
+          -->
+
+          <form class="signup-form" id="signup-form">
+
+            <input
+              type="email"
+              id="email"
+              name="email"
+              placeholder="Enter your email"
+              aria-label="Enter your email address"
+              autocomplete="email"
+              required
+            >
+
+            <button type="submit" class="button button-green">
+              Join the Era ↗
+            </button>
+
+          </form>
+
+          <p class="form-message" id="form-message"
+             aria-live="polite"></p>
+
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="container">
+
+      <div class="footer-inner">
+
+        <a href="#home" class="footer-brand">
+          FATHOM ERA.
+        </a>
+
+        <p class="footer-copy">
+          © <span id="year"></span> Fathom Era.
+          Built with intention.
+        </p>
+
+        <!-- Replace # with your real social profile links -->
+        <div class="social-links">
+          <a href="https://instagram.com/"
+             target="_blank" rel="noopener noreferrer">
+            Instagram
+          </a>
+
+          <a href="https://youtube.com/"
+             target="_blank" rel="noopener noreferrer">
+            YouTube
+          </a>
+
+          <a href="https://github.com/fathomera1"
+             target="_blank" rel="noopener noreferrer">
+            GitHub
+          </a>
+        </div>
+
+      </div>
+    </div>
+  </footer>
+
+  <!-- JAVASCRIPT -->
+  <script>
+
+    // Automatically display the current year in the footer.
+    document.getElementById("year").textContent =
+      new Date().getFullYear();
+
+    // Demonstration signup interaction.
+    // A real email service is needed to collect subscribers.
+    const signupForm = document.getElementById("signup-form");
+
+    const emailInput = document.getElementById("email");
+
+    const formMessage = document.getElementById("form-message");
+
+    signupForm.addEventListener("submit", function(event) {
+
+      // Prevent the browser from reloading the page.
+      event.preventDefault();
+
+      // Check that the email field contains a valid email.
+      if (!emailInput.checkValidity()) {
+        emailInput.reportValidity();
+        return;
+      }
+
+      // Tell visitors the form is a demonstration for now.
+      formMessage.textContent =
+        "Thanks for your interest! Email signup is coming soon.";
+
+      // Clear the field after the demonstration.
+      signupForm.reset();
+
+    });
+
+  </script>
+
+</body>
+  </html>
