@@ -1,0 +1,493 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ROMEO AI</title>
+
+<style>
+:root {
+  --gold: #e8bd62;
+  --black: #090909;
+  --panel: #171717;
+  --text: #f5f0e5;
+  --muted: #a9a49a;
+}
+* { box-sizing: border-box; }
+body {
+  margin: 0;
+  background: var(--black);
+  color: var(--text);
+  font-family: Arial, sans-serif;
+}
+header {
+  padding: 22px 16px;
+  text-align: center;
+  border-bottom: 1px solid #3d321e;
+  background: #101010;
+}
+.logo {
+  color: var(--gold);
+  font-size: 27px;
+  font-weight: bold;
+  letter-spacing: 4px;
+}
+.subtitle {
+  margin-top: 7px;
+  font-size: 11px;
+  color: var(--muted);
+  letter-spacing: 2px;
+}
+.status {
+  color: #9ed69b;
+  font-size: 12px;
+  margin-top: 12px;
+}
+nav {
+  display: flex;
+  gap: 8px;
+  padding: 12px;
+  overflow-x: auto;
+  background: #111;
+  border-bottom: 1px solid #292929;
+}
+nav button {
+  flex-shrink: 0;
+  padding: 10px 14px;
+  color: var(--gold);
+  background: #1c1c1c;
+  border: 1px solid #49391d;
+  border-radius: 9px;
+}
+main { padding: 15px; max-width: 700px; margin: auto; }
+h2 { color: var(--gold); font-size: 20px; }
+p { line-height: 1.5; }
+.card {
+  padding: 16px;
+  background: var(--panel);
+  border: 1px solid #30291e;
+  border-radius: 13px;
+  margin: 12px 0;
+}
+button {
+  cursor: pointer;
+  font-size: 14px;
+}
+.action {
+  padding: 12px;
+  background: #292216;
+  color: var(--gold);
+  border: 1px solid #6b5229;
+  border-radius: 9px;
+  margin: 4px 3px 4px 0;
+}
+input, textarea, select {
+  width: 100%;
+  padding: 13px;
+  margin: 7px 0;
+  border: 1px solid #403723;
+  border-radius: 8px;
+  background: #0e0e0e;
+  color: white;
+  font-size: 15px;
+}
+textarea { min-height: 100px; resize: vertical; }
+.primary {
+  background: var(--gold);
+  color: #15110a;
+  font-weight: bold;
+  border: 0;
+  padding: 12px 17px;
+  border-radius: 8px;
+}
+.output {
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+  color: #eee2c8;
+  line-height: 1.6;
+}
+.small { font-size: 12px; color: var(--muted); }
+.taskrow {
+  padding: 12px;
+  border-bottom: 1px solid #333;
+  overflow-wrap: anywhere;
+}
+footer {
+  text-align: center;
+  padding: 25px;
+  color: #777;
+  font-size: 12px;
+}
+</style>
+</head>
+
+<body>
+<header>
+  <div class="logo">◆ ROMEO AI ◆</div>
+  <div class="subtitle">YOUR PERSONAL WORK ASSISTANT</div>
+  <div class="status" id="connection">● BASIC MODE ACTIVE</div>
+</header>
+
+<nav>
+  <button onclick="show('home')">⌂ Home</button>
+  <button onclick="show('chat')">✦ Chat</button>
+  <button onclick="show('writing')">✎ Writing</button>
+  <button onclick="show('research')">⌕ Research</button>
+  <button onclick="show('coding')">&lt;/&gt; Coding</button>
+  <button onclick="show('notes')">▤ Notes</button>
+  <button onclick="show('tasks')">✓ Tasks</button>
+  <button onclick="show('tools')">⚙ Tools</button>
+</nav>
+
+<main>
+<section id="home">
+  <h2>Welcome back.</h2>
+  <p>Your workspace. Your ideas. Your assistant.</p>
+  <div class="card">
+    <h3 style="color:var(--gold)">ROMEO AI Dashboard</h3>
+    <p>Choose a tool to get started.</p>
+    <p id="clock">Loading clock...</p>
+    <button class="action" onclick="show('chat')">Open Assistant →</button>
+  </div>
+  <div class="card">
+    <h3>Quick Actions</h3>
+    <button class="action" onclick="show('writing')">Write something</button>
+    <button class="action" onclick="show('notes')">New note</button>
+    <button class="action" onclick="show('tasks')">Manage tasks</button>
+    <button class="action" onclick="show('coding')">Get coding help</button>
+  </div>
+  <div class="card">
+    <h3 style="color:var(--gold)">Your Assistant</h3>
+    <p>Notes and tasks stay in this browser on this device.</p>
+    <p class="small">This version works offline for basic tools. Online AI connection will be a separate setup step.</p>
+  </div>
+</section>
+
+<section id="chat" hidden>
+  <h2>✦ ROMEO Chat</h2>
+  <div class="card">
+    <div id="chatlog" class="output">ROMEO: Hello! I'm ROMEO AI. What can I help you with today?</div>
+    <input id="message" placeholder="Ask ROMEO something..." />
+    <button class="primary" onclick="chat()">Send Message ↑</button>
+    <p class="small">Basic offline replies; full AI requires an online service.</p>
+  </div>
+</section>
+
+<section id="writing" hidden>
+  <h2>✎ Writing Assistant</h2>
+  <div class="card">
+    <label>What would you like to write?</label>
+    <select id="wtype">
+      <option value="email">Professional email</option>
+      <option value="letter">Formal letter</option>
+      <option value="cv">CV profile</option>
+      <option value="apology">Apology message</option>
+      <option value="thanks">Thank-you message</option>
+      <option value="plan">Work plan</option>
+    </select>
+    <textarea id="wdetails" placeholder="Enter the topic, recipient, and important details..."></textarea>
+    <button class="primary" onclick="writeText()">Create Draft</button>
+    <div class="card output" id="woutput">Your draft will appear here.</div>
+    <button class="action" onclick="copyText('woutput')">Copy Draft</button>
+  </div>
+</section>
+
+<section id="research" hidden>
+  <h2>⌕ Research Assistant</h2>
+  <div class="card">
+    <input id="topic" placeholder="Enter a topic to research..." />
+    <button class="primary" onclick="research()">Explore Topic</button>
+    <div class="card output" id="routput">Enter a topic to get started.</div>
+    <button class="action" onclick="webSearch()">Search Web</button>
+    <p class="small">The built-in explanation is general information, not live research.</p>
+  </div>
+</section>
+
+<section id="coding" hidden>
+  <h2>&lt;/&gt; Coding Assistant</h2>
+  <div class="card">
+    <select id="lang">
+      <option>HTML</option>
+      <option>JavaScript</option>
+      <option>Python</option>
+    </select>
+    <textarea id="problem" placeholder="Describe what you want to build or the error you see..."></textarea>
+    <button class="primary" onclick="codeHelp()">Get Coding Help</button>
+    <div class="card output" id="coutput">Your coding tips will appear here.</div>
+    <button class="action" onclick="copyText('coutput')">Copy Help</button>
+  </div>
+</section>
+
+<section id="notes" hidden>
+  <h2>▤ My Notes</h2>
+  <div class="card">
+    <input id="ntitle" placeholder="Note title" />
+    <textarea id="nbody" placeholder="Write your note..."></textarea>
+    <button class="primary" onclick="saveNote()">Save Note</button>
+    <div id="notelist"></div>
+  </div>
+</section>
+
+<section id="tasks" hidden>
+  <h2>✓ My Tasks</h2>
+  <div class="card">
+    <input id="taskinput" placeholder="What needs to be done?" />
+    <button class="primary" onclick="addTask()">Add Task +</button>
+    <div id="tasklist"></div>
+  </div>
+</section>
+
+<section id="tools" hidden>
+  <h2>⚙ Tools</h2>
+  <div class="card">
+    <h3>Calculator</h3>
+    <input id="calcinput" placeholder="Example: (20 + 5) * 3" />
+    <button class="primary" onclick="calculate()">Calculate</button>
+    <div id="calcoutput" class="output"></div>
+    <p class="small">Supports basic arithmetic and parentheses.</p>
+  </div>
+  <div class="card">
+    <h3>Current Time</h3>
+    <div id="toolclock" class="output"></div>
+  </div>
+  <div class="card">
+    <h3>Connection Status</h3>
+    <p id="netstatus"></p>
+    <button class="action" onclick="updateStatus()">Check Connection</button>
+  </div>
+</section>
+</main>
+
+<footer>ROMEO AI · BLACK & GOLD EDITION</footer>
+
+<script>
+function show(id) {
+  document.querySelectorAll('main section').forEach(function(s) {
+    s.hidden = true;
+  });
+  document.getElementById(id).hidden = false;
+  if (id === 'notes') renderNotes();
+  if (id === 'tasks') renderTasks();
+  if (id === 'tools') updateStatus();
+}
+
+function getData(key) {
+  try { return JSON.parse(localStorage.getItem(key) || '[]'); }
+  catch(e) { return []; }
+}
+function setData(key, data) {
+  try {
+    localStorage.setItem(key, JSON.stringify(data));
+    return true;
+  } catch(e) {
+    alert('Storage is unavailable in this editor.');
+    return false;
+  }
+}
+
+function chat() {
+  var input = document.getElementById('message');
+  var msg = input.value.trim();
+  if (!msg) return;
+  var log = document.getElementById('chatlog');
+  var reply = getReply(msg);
+  log.textContent += '\n\nYOU: ' + msg + '\n\nROMEO: ' + reply;
+  input.value = '';
+  log.parentElement.scrollTop = log.parentElement.scrollHeight;
+}
+function getReply(m) {
+  var s = m.toLowerCase();
+  if (s.includes('hello') || s.includes('hi')) return 'Hello! Welcome to ROMEO AI. What would you like to work on?';
+  if (s.includes('name')) return 'I am ROMEO AI, your personal work assistant.';
+  if (s.includes('time')) return 'The current time is ' + new Date().toLocaleTimeString() + '.';
+  if (s.includes('write') || s.includes('email')) return 'Open Writing Assistant to create an email, letter, CV profile, or work plan.';
+  if (s.includes('research') || s.includes('learn')) return 'Open Research Assistant to explore a topic or search the web.';
+  if (s.includes('code') || s.includes('program')) return 'Open Coding Assistant, choose a language, and describe your project.';
+  if (s.includes('task') || s.includes('todo')) return 'Open Tasks to add and track your work.';
+  if (s.includes('note')) return 'Open Notes to save information on this device.';
+  if (s.includes('offline')) return 'Basic tools work offline when this app is available in your browser. Online AI needs internet.';
+  return 'I can help you get started. Try the Writing, Research, Coding, Notes, Tasks, or Tools section. For intelligent answers to arbitrary questions, we will need to connect an online AI service.';
+}
+
+function writeText() {
+  var type = document.getElementById('wtype').value;
+  var d = document.getElementById('wdetails').value.trim() || '[Add your details here]';
+  var templates = {
+    email: 'Subject: [Your subject]\n\nDear [Recipient],\n\nI am writing regarding ' + d + '.\n\nPlease let me know if you need any additional information.\n\nKind regards,\n[Your Name]',
+    letter: 'Dear [Recipient],\n\nI am writing to discuss ' + d + '.\n\nThank you for your time and consideration. I look forward to your response.\n\nYours sincerely,\n[Your Name]',
+    cv: 'Professional Profile\n\nMotivated and reliable professional with an interest in ' + d + '. Eager to contribute strong communication, organization, and problem-solving skills while continuing to learn and grow.',
+    apology: 'Hello,\n\nI sincerely apologize regarding ' + d + '. I understand the importance of this matter and take responsibility for my part. Thank you for your understanding.',
+    thanks: 'Hello,\n\nThank you very much for ' + d + '. I truly appreciate your time, help, and support. It means a lot to me.',
+    plan: 'WORK PLAN\n\nGoal: ' + d + '\n\n1. Define the desired outcome.\n2. Break the work into smaller tasks.\n3. Set priorities and deadlines.\n4. Complete each task and review progress.\n5. Evaluate the results and identify next steps.'
+  };
+  document.getElementById('woutput').textContent = templates[type];
+}
+
+function research() {
+  var t = document.getElementById('topic').value.trim();
+  if (!t) return alert('Enter a topic first.');
+  document.getElementById('routput').textContent =
+    'Research topic: ' + t +
+    '\n\nStart by defining the topic and writing down what you want to learn. Look for trustworthy sources such as educational institutions, official publications, and relevant research papers. Compare multiple sources, check publication dates, and note any disagreement.\n\nThis is a research guide, not verified facts about your topic. Use Search Web to look for current information.';
+}
+function webSearch() {
+  var t = document.getElementById('topic').value.trim();
+  if (!t) return alert('Enter a topic first.');
+  window.open('https://www.google.com/search?q=' + encodeURIComponent(t), '_blank');
+}
+
+function codeHelp() {
+  var l = document.getElementById('lang').value;
+  var p = document.getElementById('problem').value.trim();
+  if (!p) return alert('Describe your coding question first.');
+  var tips = {
+    HTML: 'HTML STRUCTURE:\n<!DOCTYPE html>\n<html>\n<head><title>My Page</title></head>\n<body>\n  <h1>Hello world</h1>\n</body>\n</html>\n\nUse tags to structure content. Check that tags are opened and closed correctly.',
+    JavaScript: 'JAVASCRIPT TIP:\nUse let or const for variables. Check the browser console for errors. Test one small change at a time.\n\nExample:\nconst message = "Hello world";\nalert(message);',
+    Python: 'PYTHON TIP:\nUse clear indentation and check spelling and punctuation.\n\nExample:\nmessage = "Hello world"\nprint(message)'
+  };
+  document.getElementById('coutput').textContent =
+    'Your question: ' + p + '\n\n' + tips[l] +
+    '\n\nThese are starter tips. Detailed debugging requires examining your actual code and error message.';
+}
+
+function copyText(id) {
+  var text = document.getElementById(id).textContent;
+  if (navigator.clipboard && navigator.clipboard.writeText) {
+    navigator.clipboard.writeText(text).then(function() {
+      alert('Copied!');
+    }).catch(function() { fallbackCopy(text); });
+  } else fallbackCopy(text);
+}
+function fallbackCopy(text) {
+  var el = document.createElement('textarea');
+  el.value = text;
+  document.body.appendChild(el);
+  el.select();
+  try { document.execCommand('copy'); alert('Copy attempted.'); }
+  catch(e) { alert('Please select and copy the text manually.'); }
+  el.remove();
+}
+
+function saveNote() {
+  var title = document.getElementById('ntitle').value.trim();
+  var body = document.getElementById('nbody').value.trim();
+  if (!title && !body) return alert('Write a note first.');
+  var notes = getData('romeo_notes');
+  notes.unshift({title: title || 'Untitled', body: body, date: new Date().toLocaleString()});
+  if (setData('romeo_notes', notes)) {
+    document.getElementById('ntitle').value = '';
+    document.getElementById('nbody').value = '';
+    renderNotes();
+  }
+}
+function renderNotes() {
+  var notes = getData('romeo_notes');
+  var el = document.getElementById('notelist');
+  el.innerHTML = '';
+  notes.forEach(function(n, i) {
+    var card = document.createElement('div');
+    card.className = 'taskrow';
+    var title = document.createElement('strong');
+    title.style.color = 'var(--gold)';
+    title.textContent = n.title;
+    var body = document.createElement('p');
+    body.textContent = n.body;
+    var date = document.createElement('div');
+    date.className = 'small';
+    date.textContent = n.date;
+    var del = document.createElement('button');
+    del.className = 'action';
+    del.textContent = 'Delete';
+    del.onclick = function() {
+      var arr = getData('romeo_notes');
+      arr.splice(i, 1);
+      setData('romeo_notes', arr);
+      renderNotes();
+    };
+    card.append(title, body, date, del);
+    el.appendChild(card);
+  });
+}
+
+function addTask() {
+  var input = document.getElementById('taskinput');
+  var text = input.value.trim();
+  if (!text) return alert('Enter a task first.');
+  var tasks = getData('romeo_tasks');
+  tasks.push({text: text, done: false});
+  if (setData('romeo_tasks', tasks)) {
+    input.value = '';
+    renderTasks();
+  }
+}
+function renderTasks() {
+  var tasks = getData('romeo_tasks');
+  var el = document.getElementById('tasklist');
+  el.innerHTML = '';
+  tasks.forEach(function(t, i) {
+    var row = document.createElement('div');
+    row.className = 'taskrow';
+    var cb = document.createElement('input');
+    cb.type = 'checkbox';
+    cb.checked = t.done;
+    cb.style.width = 'auto';
+    cb.onchange = function() {
+      var arr = getData('romeo_tasks');
+      arr[i].done = cb.checked;
+      setData('romeo_tasks', arr);
+      renderTasks();
+    };
+    var label = document.createElement('span');
+    label.textContent = ' ' + t.text;
+    if (t.done) label.style.textDecoration = 'line-through';
+    var del = document.createElement('button');
+    del.className = 'action';
+    del.textContent = 'Delete';
+    del.onclick = function() {
+      var arr = getData('romeo_tasks');
+      arr.splice(i, 1);
+      setData('romeo_tasks', arr);
+      renderTasks();
+    };
+    row.append(cb, label, del);
+    el.appendChild(row);
+  });
+}
+
+function calculate() {
+  var expr = document.getElementById('calcinput').value.trim();
+  var out = document.getElementById('calcoutput');
+  if (!expr) return;
+  if (!/^[0-9+\-*/().%\s]+$/.test(expr)) {
+    out.textContent = 'Use numbers and basic arithmetic operators only.';
+    return;
+  }
+  try {
+    var result = Function('"use strict";return (' + expr + ')')();
+    out.textContent = Number.isFinite(result) ? 'Result: ' + result : 'Invalid calculation.';
+  } catch(e) {
+    out.textContent = 'Please check your calculation.';
+  }
+}
+
+function updateClock() {
+  var now = new Date();
+  var time = now.toLocaleTimeString();
+  var date = now.toLocaleDateString();
+  document.getElementById('clock').textContent = date + ' · ' + time;
+  document.getElementById('toolclock').textContent = date + ' · ' + time;
+}
+function updateStatus() {
+  document.getElementById('netstatus').textContent =
+    navigator.onLine ? 'Internet connection detected.' : 'You appear to be offline.';
+  document.getElementById('connection').textContent =
+    navigator.onLine ? '● BASIC MODE · INTERNET DETECTED' : '● OFFLINE BASIC MODE';
+}
+window.addEventListener('online', updateStatus);
+window.addEventListener('offline', updateStatus);
+updateClock();
+updateStatus();
+setInterval(updateClock, 1000);
+</script>
+</body>
+  </html>
